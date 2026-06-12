@@ -13,15 +13,13 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 class Loveson(db.Model):
-	Sn = db.Column(db.Integer, primary_key = True)
-	
-	title = db.Column(db.String(200), nullable = False)
-	
-	desc = db.Column(db.String(500), nullable = False)
-	
-	date_created = db.Column(db.DateTime, default=datetime.utcnow)
-	
-	
+    Sn = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200), nullable=False)
+    desc = db.Column(db.String(500), nullable=False)
+    date_created = db.Column(db.DateTime, default=datetime.utcnow)
+
+with app.app_context():
+    db.create_all()
 	def __repr__(self):
 		return f'{self.Sn} - {self.title}'
 # Define the homepage route
