@@ -1,16 +1,26 @@
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+import os
 
 # Initialize the Flask application
 app = Flask(__name__)
-# configure the SQLite database, relative to the app instance folder
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///Loveson.db"
+database_url = os.environ.get("DATABASE_URL")
 
-
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+if database_url:
+    if database_url.startswith("postgres://"):
+        database_url = database_url.replace(
+            "postgres://",
+            "postgresql://",
+            1
+        )
+    app.config["SQLALCHEMY_DATABASE_URI"] = database_url
+else:
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///Loveson.db"
+    
 db = SQLAlchemy(app)
+
+
 
 class Loveson(db.Model):
     Sn = db.Column(db.Integer, primary_key=True)
@@ -18,10 +28,13 @@ class Loveson(db.Model):
     desc = db.Column(db.String(500), nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
+	
+def __repr__(self):
+		return f'{self.Sn} - {self.title}'
+		
+
 with app.app_context():
     db.create_all()
-	def __repr__(self):
-		return f'{self.Sn} - {self.title}'
 # Define the homepage route
 
 @app.route('/', methods=['GET', 'POST'])
@@ -72,5 +85,5 @@ if __name__ == '__main__':
 
     with app.app_context():
     	db.create_all()
-    	
+   
     app.run(debug=True)
