@@ -1,1 +1,1 @@
-web: gunicorn ToDo_List: ToDo_List
+web: gunicorn ToDo_List:app
