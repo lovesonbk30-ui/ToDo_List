@@ -28,10 +28,9 @@ class Loveson(db.Model):
     desc = db.Column(db.String(500), nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
-	
 def __repr__(self):
-		return f'{self.Sn} - {self.title}'
-		
+	return f'{self.Sn} - {self.title}'
+	
 
 with app.app_context():
     db.create_all()
