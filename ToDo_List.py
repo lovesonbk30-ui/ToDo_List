@@ -1,8 +1,7 @@
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-import os
-import psycopg2
+
 
 # Initialize the Flask application
 app = Flask(__name__) # configure the SQLite database, relative to the app instance folder 
