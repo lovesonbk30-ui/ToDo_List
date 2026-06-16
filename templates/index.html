@@ -395,134 +395,13 @@ body{
 }
 
 
-    </style>
-</head>
-<body>
-
-
-<nav class="navbar">
-
-    <div class="nav-logo">
-        <a href="/">
-            <img src="{{ url_for('static', filename='logo.jpg') }}" class="logo-img" alt="Logo">
-            <span>Loveson BK</span>
-        </a>
-    </div>
-
-    <ul class="nav-links">
-        <li><a href="/" class="active">Home</a></li>
-        <li><a href="/task">Tasks</a></li>
-        <li><a href="/attendance">Attendance</a></li>
-        <li><a href="/show"> show</a></li>
-    </ul>
-
-    <div class="nav-button">
- <div class="search-box">
-    <form action="/" method="GET">
-        <input
-            type="text"
-            name="search"
-            placeholder="🔍 Search tasks..."
-            class="search-input">
-
-        <button type="submit" class="search-btn">
-            Search
-        </button>
-    </form>
-</div>
-    </form>
-  </div>
-</nav>
-    </div>
-
-</nav>
-    <div class="container">
-        <h1>👏Welcome To Loveson Site </h1>
-        <p>✅This site Focuses on To-Do-List</p>
-        <a href="About" class="btn">Explore Site</a>
-    </div>
-
-
-<div class="todo-card">
-    <h2>📝 Create New Task</h2>
-
-    <form action ='/' method="POST">
-
-        <div class="input-group">
-            <label for="title">📌 Task Title</label>
-            <input
-                type="text"
-                id="title"
-                name="title"
-                placeholder="Enter your task..."
-                required>
-        </div>
-
-        <div class="input-group">
-            <label for="desc">📖 Description</label>
-            <textarea
-                id="desc"
-                name="desc"
-                rows="4"
-                placeholder="Write task details..."
-                required></textarea>
-        </div>
-
-        <button type="submit" class="submit-btn">
-            ➕ Add Task
-        </button>
-
-    </form>
-  
-
-</div>
- {% if all_todo|length == 0 %}
-  
- <button class="notify-btn" role="alert">
-  No any ToDo list. Please add some!
-</button>
- 
- 
- {% else %}
-  <table class="todo-table">
-  <thead>
-    <tr>
-      <th scope="col"> S.N.</th>
-      <th scope="col">Title</th>
-      <th scope="col">Description</th>
-      <th scope="col">Time</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-    <tbody>
-    {% for Loveson in all_todo %}
-    <tr>
-      <th scope="row">{{loop.index}}</th>
-      <td>{{Loveson.title}}</td>
-      <td>{{Loveson.desc}}</td>
-      <td>{{Loveson.date_created}}</td>
-      <td> <a href='/update/{{Loveson.Sn}}' type="button" class="btn btn-outline-dark btn-sm mx-2"> Update </button>
-      <a href='/delete/{{Loveson.Sn}}' type="button" class="btn btn-outline-dark btn-sm mx-2"> Delete </button> </td>
-    </tr>
-       {% endfor %}
-    {% endif %}
-    
-    </tbody>
-</table>
-<div class="creator-card">
-    <div class="CT">Creator Name:  </div>
-    <div class="CN">Loveson Bk</div>
-<div class="creator-desc">
-    Python Developer specializing in Flask web applications,
-    database management, and modern user interfaces. Passionate
-    about building efficient, scalable, and user-friendly solutions.
-</div>
-</div>
 
 
 
 
-  {% endblock body %}
+
+
+
 .nav-links a.active {
   color: #00adb5;
 }
