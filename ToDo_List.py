@@ -182,3 +182,80 @@ if __name__ == '__main__':
     	db.create_all()
    
     app.run(debug=True)
+    total_days = len(unique_dates)
+    total_presents = sum(1 for record in records if record.status == "Present")
+    total_absents = sum(1 for record in records if record.status == "Absent")
+
+    # NEW: Get individual student logic from GET parameters
+    selected_student = request.args.get("selected_student")
+    student_records = []
+    attendance_rate = 0
+
+    if selected_student:
+        # Filter the global records list for the chosen student name
+        student_records = [r for r in records if r.student_name == selected_student]
+        
+        # Calculate individual student metrics
+        total_student_days = len(student_records)
+        if total_student_days > 0:
+            student_presents = sum(1 for r in student_records if r.status == "Present")
+            attendance_rate = round((student_presents / total_student_days) * 100, 1)
+            redirect ('/attendance')
+
+    return render_template(
+        'Attendance.html',
+        students=students,
+        records=records,
+        total_days=total_days,
+        total_presents=total_presents,
+        total_absents=total_absents,
+        selected_student=selected_student,
+        student_records=student_records,
+        attendance_rate=attendance_rate
+    )
+    
+
+@app.route("/add_student", methods=["POST"])
+def add_student():
+    name = request.form["name"]
+    if name.strip():
+        student = Student(name=name)
+        db.session.add(student)
+        db.session.commit()
+    return redirect("/attendance")
+
+@app.route("/mark", methods=["POST"])
+def mark():
+    students = Student.query.all()
+    today = datetime.now().strftime("%Y-%m-%d")
+
+    for student in students:
+        status = request.form.get(f"status_{student.id}")
+        if status:
+            attendance = Attendance(
+                student_name=student.name,
+                status=status,
+                date=today
+            )
+            db.session.add(attendance)
+
+    db.session.commit()
+    return redirect("/attendance")
+
+
+	
+
+
+
+
+
+
+
+
+
+if __name__ == '__main__':
+
+    with app.app_context():
+    	db.create_all()
+   
+    app.run(debug=True)
