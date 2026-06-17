@@ -19,9 +19,8 @@ class Loveson(db.Model):
     title = db.Column(db.String(200), nullable=False)
     desc = db.Column(db.String(500), nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
-
 	
-def __repr__(self):
+	def __repr__(self):
 		return f'{self.Sn} - {self.title}'
 	
 
@@ -44,7 +43,7 @@ def home():
     	db.session.add(todo)
     	db.session.commit()
     all_todo = Loveson.query.all()
-    return render_template('ToDo.html', all_todo=all_todo)
+	return render_template('ToDo.html', all_todo=all_todo)
  
 
 
@@ -200,7 +199,7 @@ if __name__ == '__main__':
         if total_student_days > 0:
             student_presents = sum(1 for r in student_records if r.status == "Present")
             attendance_rate = round((student_presents / total_student_days) * 100, 1)
-            redirect ('/attendance')
+        return redirect ('/attendance')
 
     return render_template(
         'Attendance.html',
