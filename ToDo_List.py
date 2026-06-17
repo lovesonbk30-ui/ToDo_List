@@ -165,22 +165,10 @@ def mark():
     return redirect("/attendance")
 
 
-	
 
 
 
 
-
-
-
-
-
-if __name__ == '__main__':
-
-    with app.app_context():
-    	db.create_all()
-   
-    app.run(debug=True)
     total_days = len(unique_dates)
     total_presents = sum(1 for record in records if record.status == "Present")
     total_absents = sum(1 for record in records if record.status == "Absent")
