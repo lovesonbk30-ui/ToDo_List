@@ -20,7 +20,7 @@ class Loveson(db.Model):
     desc = db.Column(db.String(500), nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 	
-	def __repr__(self):
+def __repr__(self):
 		return f'{self.Sn} - {self.title}'
 	
 
